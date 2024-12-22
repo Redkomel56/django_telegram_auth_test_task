@@ -1,0 +1,30 @@
+ru:
+  users:
+    texts:
+      register: Спасибо, что зарегистрировались
+      register_error: Ошибка при регистрации
+      start: |
+        Привет
+      menu: |
+        Меню
+      help: | 
+        Доступные команды:
+        
+        {}
+      commands: |
+        /start - запустить бота
+        /help - помощь
+    buttons:
+      menu:
+        - - text: Какое-то действие
+            callback_data: action
+        - - text: Какое-то действие 2
+            callback_data: ref
+  admins:
+    texts:
+      menu: Админка
+    buttons:
+      back:
+        - text: В админку
+          callback_data: ad_menu
+data:

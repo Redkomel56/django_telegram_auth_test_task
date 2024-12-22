@@ -1,0 +1,5 @@
+aiogram==3.5.0
+requests==2.31.0
+pyyaml==6.0.1
+pymongo==4.6.1
+cachetools

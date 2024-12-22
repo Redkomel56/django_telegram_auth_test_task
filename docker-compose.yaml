@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  dragonfly-django:
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+    container_name: dragonfly-django
+    ports:
+      - 6379:6379
+    ulimits:
+      memlock: -1
+    volumes:
+      - dragonfly-data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    container_name: backend
+    restart: always
+    env_file:
+      - ./.env
+    depends_on:
+      - dragonfly-django
+      - bot
+    ports:
+      - 8000:8000
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  bot:
+    build:
+      context: ./telegram_bot
+      dockerfile: ./Dockerfile
+    container_name: bot
+    restart: always
+    env_file:
+      - ./.env
+    depends_on:
+      - dragonfly-django
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+volumes:
+  dragonfly-data:
